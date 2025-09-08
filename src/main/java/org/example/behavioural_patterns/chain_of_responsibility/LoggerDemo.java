@@ -24,20 +24,22 @@ HINTS:
 */
 
     public static void main(String[] args) {
-
-        String message1 = "Detta är ett INFO meddelande";
-        String message2 = "Detta är ett DEBUG meddelande";
-        String message3 = "Detta är ett ERROR meddelande";
-
         int INFO = 1;
         int DEBUG = 2;
         int ERROR = 3;
 
+        /*String message1 = "Detta är ett INFO meddelande";
+        String message2 = "Detta är ett DEBUG meddelande";
+        String message3 = "Detta är ett ERROR meddelande";
+
+
         InfoLogger infoLogger = new InfoLogger();
         DebugLogger debugLogger = new DebugLogger();
         ErrorLogger errorLogger = new ErrorLogger();
+         */
 
-        if (INFO == 1) {
+
+       /* if (INFO == 1) {
             infoLogger.log(message1);
         } else if (DEBUG == 1) {
             debugLogger.log(message1);
@@ -60,7 +62,17 @@ HINTS:
         } else if (ERROR == 3) {
             errorLogger.log(message3);
         }
+        */
 
+        LoggerHandler infoHandler = new LoggerHandler.InfoHandler();
+        LoggerHandler errorHandler = new LoggerHandler.ErrorHandler();
+        LoggerHandler debugHandler = new LoggerHandler.DebugHandler();
 
+        infoHandler.setNextHandler(debugHandler);
+        debugHandler.setNextHandler(errorHandler);
+
+        infoHandler.handleRequest(INFO);
+        infoHandler.handleRequest(DEBUG);
+        infoHandler.handleRequest(ERROR);
     }
 }
