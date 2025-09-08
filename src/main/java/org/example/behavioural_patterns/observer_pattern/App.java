@@ -31,9 +31,14 @@ public class App {
     Tänk på hur tidningsprenumeration fungerar - prenumeranter får automatiskt alla nya nummer.
     */
     public static void main(String[] args) {
+        NotificationManager notificationManager = new NotificationManager();
+
         // Skapar alla avdelningar manuellt
         PayrollDepartment payroll = new PayrollDepartment();
         HRDepartment hr = new HRDepartment();
+
+        notificationManager.addObserver(payroll);
+        notificationManager.addObserver(hr);
 
         // Denna "EmployeeSystem" vet inte om avdelningarna
         EmployeeSystem empSystem = new EmployeeSystem();
